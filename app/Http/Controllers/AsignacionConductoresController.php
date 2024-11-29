@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Conductor;
 
 class AsignacionConductoresController extends Controller
 {
     public function index()
     {
-        $conductores = []; // Reemplaza esto con tu lógica para obtener los conductores
+        $conductores = Conductor::all(); // Reemplaza esto con tu lógica para obtener los conductores
 
         return view('asignacion_conductores', compact('conductores'));
     }

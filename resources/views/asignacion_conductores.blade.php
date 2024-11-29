@@ -32,7 +32,7 @@
                 <td>{{ $conductor->nombre }}</td>
                 <td>{{ $conductor->unidad }}</td>
                 <td>{{ $conductor->ingreso }}</td>
-                < td>{{ $conductor->vigencia }}</td>
+                <td>{{ $conductor->vigencia }}</td>
                 <td>{{ $conductor->licencia }}</td>
                 <td>{{ $conductor->psicofisico }}</td>
                 <td>{{ $conductor->antiguedad_licencia }}</td>
@@ -83,15 +83,17 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar</button>
-                <button type="button" class="btn btn-success" onclick="generarPDF()">Generar PDF</button>
+                <button type="button" class="btn btn-success" onclick="generarPDF('recursos_humanos')">Generar PDF</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
     function abrirModal(conductorId) {
         document.getElementById('conductor_id').value = conductorId;
+        console.log(conductorId);
+        //$('#modalModificar').modal({show: true});
         $('#modalModificar').modal('show');
     }
 

@@ -48,13 +48,16 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->hasRole('servicio_medico')) {
+        // Redirigir según el rol del usuario
+        if ($user->hasRole('gestión.conductores')) {
+            return redirect()->route('usuarios.gestionar'); // Redirige a la gestión de usuarios
+        } elseif ($user->hasRole('servicio_medico')) {
             return redirect()->route('servicio_medico.index');
         } elseif ($user->hasRole('asignacion_conductores')) {
             return redirect()->route('asignacion_conductores.index');
         }
 
-        return redirect()->route('conductores.index'); 
+        return redirect()->route('conductores.gestion'); 
     }
 
     public function logout(Request $request)
@@ -63,3 +66,4 @@ class LoginController extends Controller
         return redirect()->route('login'); 
     }
 }
+

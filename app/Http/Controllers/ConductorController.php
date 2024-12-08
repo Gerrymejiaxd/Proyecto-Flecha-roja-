@@ -38,9 +38,33 @@ class ConductorController extends Controller
         return redirect()->route('conductores.alta')->with('success', 'Conductor registrado exitosamente.');
     }
 
-    public function baja()
+    public function baja(Request $request)
     {
-        return view('conductores.baja');
+        $conductores = $this->buscarConductores($request);
+        return view('conductores.baja', compact('conductores'));
+    }
+
+    public function gestion(Request $request)
+    {
+        $conductores = $this->buscarConductores($request);
+        return view('conductores.gestion_conductores', compact('conductores'));
+    }
+
+    private function buscarConductores(Request $request)
+    {
+        $request->validate([
+            'clave' => 'nullable|string',
+            'nombre' => 'nullable|string',
+        ]);
+
+        $clave = $request->input('clave');
+        $nombre = $request->input('nombre');
+
+        return Conductor::when($clave, function ($query, $clave) {
+            return $query->where('clave', 'like', '%' . $clave . '%');
+        })->when($nombre, function ($query, $nombre) {
+            return $query->where('nombre', 'like', '%' . $nombre . '%');
+        })->oldest()->get(); // Ejecuta la consulta
     }
 
     public function darBaja(Request $request)
@@ -79,9 +103,27 @@ class ConductorController extends Controller
         return view('conductores.index', compact('conductores'));
     }
 
-    public function busqueda()
+    public function busqueda(Request $request)
     {
-        return view('conductores.busqueda');
+        $query = Conductor::query();
+
+        if ($request->filled('clave')) {
+            $query->where('clave', $request->clave);
+        }
+
+        if ($request->filled('nombre')) {
+            $query->where('nombre', 'LIKE', '%' . $request->nombre . '%');
+        }
+
+        $conductores = $query->get();
+
+        return view('conductores.index', compact('conductores'));
+    } 
+
+    public function buscarPorId($id) // Renombrado
+    {
+        $conductor = Conductor::findOrFail($id); // Encuentra el conductor por ID
+        return view('conductores.búsqueda', compact('conductor')); // Pasa el conductor a la vista
     }
 
     public function resultadosBusqueda(Request $request)
@@ -106,11 +148,12 @@ class ConductorController extends Controller
     public function modificar($id)
     {
         $conductor = Conductor::findOrFail($id);
-        return view('conductores.modificar', compact('conductor'));
+        return view('conductores.editar', compact('conductor'));
     }
 
     public function actualizar(Request $request, $id)
     {
+        $conductor = Conductor::findOrFail($id);
         $request->validate([
             'clave' => 'required|string|max:255',
             'conductor' => 'required|string|max:255',
@@ -120,7 +163,6 @@ class ConductorController extends Controller
             'estatus' => 'required|string|max:255',
         ]);
 
-        $conductor = Conductor::findOrFail($id);
         $conductor->clave = $request->clave;
         $conductor->nombre = $request->conductor;
         $conductor->fecha_ingreso = $request->fecha_ingreso;
@@ -129,17 +171,12 @@ class ConductorController extends Controller
         $conductor->estatus = $request->estatus;
         $conductor->save();
 
-        return redirect()->route('conductores.modificar', $id)->with('success', 'Conductor actualizado exitosamente.');
+        return redirect()->route('conductores.buscar')->with('success', 'Conductor actualizado correctamente.');
     }
 
-    public function informes()
+    public function generarInforme(Request $request)
     {
-        return view('conductores.informes');
-    }
-
- public function generarInforme(Request $request)
-    {
-        // Implementar la lógica para generar informes
+        // Lógica para generar informes
     }
 
     public function pdfAlta()
@@ -175,12 +212,12 @@ class ConductorController extends Controller
     public function index()
     {
         $conductores = Conductor::all();
-        return view('asignacion_conductores', compact('conductores'));
+        return view('conductores.index', compact('conductores'));
     }
 
     public function create()
     {
-        return view('conductores.create');
+        return view('conductores.alta');
     }
 
     public function store(Request $request)
@@ -204,7 +241,7 @@ class ConductorController extends Controller
         $roles = Role::all();
         return view('conductores.manage_users', compact('users', 'roles'));
     }
-
+    
     public function assignRole(Request $request, User $user)
     {
         $request->validate([

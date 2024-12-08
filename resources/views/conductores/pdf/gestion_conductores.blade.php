@@ -1,19 +1,54 @@
-@extends('layouts.app') <!-- Asegúrate de que este sea el nombre correcto de tu layout -->
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
         <h1 class="text-center">Informe de Gestión de Conductores</h1>
-        
-        <h2>Detalles del Informe</h2>
-        <div class="info" style="margin: 20px 0; padding: 10px; border: 1px solid #4CAF50; border-radius: 5px; background-color: #f9f9f9;">
-            <p><strong>Mes:</strong> {{ $mes }}</p>
-            <p><strong>Clave:</strong> {{ $clave }}</p>
-            <p><strong>Conductor:</strong> {{ $conductor }}</p>
+        <div class="info mt-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Clave</th>
+                        <th>Colaborador</th>
+                        <th>Unidad</th>
+                        <th>Ingreso</th>
+                        <th>Vigencia</th>
+                        <th>Licencia</th>
+                        <th>Psicofísico</th>
+                        <th>Antig. Licencia</th>
+                        <th>Zona</th>
+                        <th>Rol</th>
+                        <th>Estatus</th>
+                        <th>Tecnologías</th>
+                        <th>Teléfono</th>
+                        <th>Incidencias</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $clave }}</td>
+                        <td>{{ $colaborador }}</td>
+                        <td>{{ $unidad }}</td>
+                        <td>{{ $ingreso }}</td>
+                        <td>{{ $vigencia }}</td>
+                        <td>{{ $licencia }}</td>
+                        <td>{{ $psicofisico }}</td>
+                        <td>{{ $antiguedad_licencia }}</td>
+                        <td>{{ $zona }}</td>
+                        <td>{{ $rol }}</td>
+                        <td>{{ $estatus }}</td>
+                        <td>{{ $tecnologias }}</td>
+                        <td>{{ $telefono }}</td>
+                        <td>{{ $incidencias }}</td>
+                        <td>{{ $acciones }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div class="footer" style="margin-top: 40px; text-align: center; font-size: 12px; color: #777;">
-            <p>Este informe fue generado automáticamente.</p>
+        <div class="footer mt-5">
+            <p class="text-center">Generado el {{ date('d/m/Y H:i') }}</p>
         </div>
     </div>
 @endsection
+
 

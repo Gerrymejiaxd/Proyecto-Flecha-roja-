@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\PDF;
-
+use App\Models\Incidencia;
 class InformeController extends Controller
 {
     // Muestra el formulario para generar informes
     public function index()
     {
-        return view('informes');
+        return view('conductores.informes');
     }
 
     public function recursosHumanos()
@@ -23,46 +23,33 @@ class InformeController extends Controller
         return view('conductores.pdf.gestion_conductores');
     }
 
-    public function generar(Request $request)
+    public function generarPDF($id)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'tipo_informe' => 'required|string',
-        ]);
+        $incidencia = Incidencia::find($id);
 
-        // Dependiendo del tipo de informe, se validan y procesan los datos
-        if ($request->tipo_informe === 'recursos_humanos') {
-            $this->validateRecursosHumanos($request);
-
-            // Crear el contenido del PDF para Recursos Humanos
-            $data = $this->prepareRecursosHumanosData($request);
-
-            // Generar el PDF
-            $pdf = PDF::loadView('pdf.recursos_humanos', $data);
-
-            // Descargar el PDF
-            return $pdf->download('informe_recursos_humanos.pdf');
-
-        } elseif ($request->tipo_informe === 'gestion_conductores') {
-            $this->validateGestionConductores($request);
-
-            // Crear el contenido del PDF para Gestión de Conductores
-            $data = $this->prepareGestionConductoresData($request);
-
-            // Generar el PDF
-            $pdf = PDF::loadView('pdf.gestion_conductores', $data);
-
-            // Descargar el PDF
-            return $pdf->download('informe_gestion_conductores.pdf');
+        if (!$incidencia) {
+            return redirect()->route('informes.index')->with('error', 'Incidencia no encontrada.');
         }
 
-        return redirect()->route('informes.index')->with('error', 'Tipo de informe no válido.');
+        $data = [
+            'item' => $incidencia->item,
+            'clave' => $incidencia->clave,
+            'colaborador' => $incidencia->colaborador,
+            'fecha_incidencia' => $incidencia->fecha_incidencia,
+            'fecha_baja' => $incidencia->fecha_baja,
+            'incidencia' => $incidencia->descripcion,
+            'observacion' => $incidencia->observacion,
+        ];
+
+        $pdf = PDF::loadView('conductores.informes', $data);
+        return $pdf->download('informe_gestion_conductores.pdf');
     }
+
 
     private function validateRecursosHumanos(Request $request)
     {
         $request->validate([
-            'mes' => 'required|string',
+            'itwm' => 'required|string',
             'clave' => 'required|string',
             'colaborador' => 'required|string',
             'fecha_incidencia' => 'required|date',
@@ -73,18 +60,19 @@ class InformeController extends Controller
     private function prepareRecursosHumanosData(Request $request)
     {
         return [
-            'mes' => $request->mes,
+            'item' => $request->item,
             'clave' => $request->clave,
             'colaborador' => $request->colaborador,
             'fecha_incidencia' => $request->fecha_incidencia,
             'fecha_baja' => $request->fecha_baja,
         ];
     }
+    
 
     private function validateGestionConductores(Request $request)
     {
         $request->validate([
-            'mes' => 'required|string',
+            'item' => 'required|string',
             'clave' => 'required|string',
             'conductor' => 'required|string',
         ]);
@@ -93,10 +81,29 @@ class InformeController extends Controller
     private function prepareGestionConductoresData(Request $request)
     {
         return [
-            'mes' => $request->mes,
+            'item' => $request->item,
             'clave' => $request->clave,
             'conductor' => $request->conductor,
         ];
+    }
+
+    public function mostrarInforme($id)
+    {
+        $incidencia = Incidencia::find($id);
+
+        if (!$incidencia) {
+            return redirect()->route('informes.index')->with('error', 'Incidencia no encontrada.');
+        }
+
+        return view('conductores.informes', [
+            'item' => $incidencia->item,
+            'clave' => $incidencia->clave,
+            'colaborador' => $incidencia->colaborador,
+            'fecha_incidencia' => $incidencia->fecha_incidencia,
+            'fecha_baja' => $incidencia->fecha_baja,
+            'incidencia' => $incidencia->descricion,
+            'observacion'=> $incidencia->observacion,
+        ]);
     }
 
     public function cancelar()
@@ -104,3 +111,4 @@ class InformeController extends Controller
         return redirect()->route('informes.index');
     }
 }
+

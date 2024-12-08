@@ -7,46 +7,45 @@
         @csrf
         <div class="form-group">
             <label for="clave">Clave:</label>
-            <input type="text" name="clave" class="form-control" required>
+            <input type="text" name="clave" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="conductor">Conductor:</label>
-            <input type="text" name="conductor" class="form-control" required>
+            <input type="text" name="conductor" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="fecha_ingreso">Fecha de Ingreso:</label>
-            <input type="date" name="fecha_ingreso" class="form-control" required>
+            <input type="date" name="fecha_ingreso" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="rol">Rol:</label>
-            <input type="text" name="rol" class="form-control" required>
+            <input type="text" name="rol" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="zona">Zona:</label>
-            <input type="text" name="zona" class="form-control" required>
+            <input type="text" name="zona" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="estatus">Estatus:</label>
-            <select name="estatus" class="form-control" required>
+            <select name="estatus" class="form-control" >
                 <option value="activo">Activo</option>
                 <option value="inactivo">Inactivo</option>
             </select>
         </div>
 
-        <!-- Nuevos campos añadidos -->
         <div class="form-group">
             <label for="clasificacion">Clasificación:</label>
-            <input type="text" name="clasificacion" class="form-control" required>
+            <input type="text" name="clasificacion" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="tecnologia">Tecnología:</label>
-            <select name="tecnologia" class="form-control" required>
+            <select name="tecnologia" class="form-control" >
                 <option value="scania">Scania</option>
                 <option value="volvo">Volvo</option>
             </select>
@@ -54,42 +53,42 @@
 
         <div class="form-group">
             <label for="email">E-mail:</label>
-            <input type="email" name="email" class="form-control" required>
+            <input type="email" name="email" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="curp">CURP:</label>
-            <input type="text" name="curp" class="form-control" required>
+            <input type="text" name="curp" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="rfc">RFC:</label>
-            <input type="text" name="rfc" class="form-control" required>
+            <input type="text" name="rfc" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="no_imss">No. IMSS:</label>
-            <input type="text" name="no_imss" class="form-control" required>
+            <input type="text" name="no_imss" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-            <input type="date" name="fecha_nacimiento" class="form-control" required>
+            <input type="date" name="fecha_nacimiento" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="edad">Edad:</label>
-            <input type="number" name="edad" class="form-control" required>
+            <input type="number" name="edad" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="telefono">Teléfono:</label>
-            <input type="tel" name="telefono" class="form-control" required>
+            <input type="tel" name="telefono" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="municipio">Municipio:</label>
-            <input type="text" name="municipio" class="form-control" required>
+            <input type="text" name="municipio" class="form-control" >
         </div>
 
         <div class="form-group">
@@ -132,20 +131,25 @@
 
         <div class="form-group">
             <label for="domicilio">Domicilio:</label>
-            <input type="text" name="domicilio" class="form-control" required>
+            <input type="text" name="domicilio" class="form-control" >
         </div>
 
         <div class="form-group">
             <label for="historial_trabajo">Historial de Trabajo:</label>
-            <textarea name="historial_trabajo" class="form-control" required></textarea>
+            <textarea name="historial_trabajo" class="form-control"></textarea>
         </div>
 
         <div class="form-group">
             <label for="tipo_ingreso">Tipo de Ingreso:</label>
-            <select name="tipo_ingreso" class="form-control" required>
+            <select name="tipo_ingreso" class="form-control">
                 <option value="directo">Directo</option>
                 <option value="formacion">Formación</option>
             </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="vigencia_licencia">Vigencia de vigencia_licencia:</label>
+            <input type="date" name="fecha_vencimiento" class="form-control">
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>

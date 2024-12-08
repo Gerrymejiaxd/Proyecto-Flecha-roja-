@@ -69,8 +69,8 @@
 </head>
 <body>
     <header class="header">
-        <img src="{{ asset('logo2.jpeg') }}" alt="Logo"> <!-- Ruta del logo -->
-        <h1>PORTAL DE GESTION DE CONDUCTORES</h1> <!-- Texto centrado -->
+        <img src="{{ asset('logo2.jpeg') }}" alt="Logo"> 
+        <h1>PORTAL DE GESTION DE CONDUCTORES</h1> 
         <nav> 
             <ul>
                 @if(Auth::check())
@@ -93,3 +93,4 @@
     </footer>
 </body>
 </html>
+

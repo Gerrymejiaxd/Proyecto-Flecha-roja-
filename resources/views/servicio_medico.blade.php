@@ -2,20 +2,12 @@
 
 @section('content')
 <div class="container">
-    <h2>Servicio Médico</h2>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
+    <h2 class="text-center">Informe de Gestión de Conductores</h2>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Item</th>
                 <th>Clave</th>
-                <th>Conductor</th>
+                <th>Colaborador</th>
                 <th>Unidad</th>
                 <th>Ingreso</th>
                 <th>Vigencia</th>
@@ -34,10 +26,8 @@
         <tbody>
             @foreach($conductores as $conductor)
             <tr>
-                <td>{{ $loop->iteration }}</td> <!-- Muestra el número de fila -->
                 <td>{{ $conductor->clave }}</td>
-                <td>{{ $conductor->nombre }}</td>
-                <td>{{ $conductor->unidad }}</td>
+                <td>{{ $conductor->colaborador }}</td> 
                 <td>{{ $conductor->ingreso }}</td>
                 <td>{{ $conductor->vigencia }}</td>
                 <td>{{ $conductor->licencia }}</td>
@@ -49,8 +39,9 @@
                 <td>{{ $conductor->tecnologias }}</td>
                 <td>{{ $conductor->telefono }}</td>
                 <td>{{ $conductor->incidencias }}</td>
-                <td>
-                    <button class="btn btn-warning" onclick="abrirModal('{{ $conductor->id }}', '{{ $conductor->incidencias }}')">Modificar</button>
+                <td>{{ $conductor->acciones }}</td>
+                            
+                <button class="btn btn-warning" onclick="abrirModal('{{ $conductor->id }}')">Modificar</button>
                 </td>
             </tr>
             @endforeach
@@ -83,7 +74,7 @@
                 </div>
             </form>
         </div>
-    </div>
+        </div>
 </div>
 
 @endsection
@@ -98,7 +89,13 @@
     }
 
     function generarPDF() {
-        // Implementar la lógica para generar el PDF
+        if (tipoInforme === 'recursos_humanos') {
+            window.location.href = 'conductores/pdf/recursos.humanos';
+        } else if (tipoInforme === 'gestion_conductores') {
+            window.location.href = 'conductores/pdf/gestion.conductores';
+        } else {
+            alert('Tipo de informe no válido.');
+        }
     }
 </script>
 @endsection

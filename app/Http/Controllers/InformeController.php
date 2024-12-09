@@ -3,8 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\PDF;
+
+class BuscarController extends Controller
+{
+    public function buscar(Request $request)
+    {
+        // Validación de la solicitud POST
+        $request->validate([
+            'buscar' => 'required|string|max:255',
+        ]);
+
+        // Lógica para manejar la búsqueda
+        $buscar = $request->input('buscar');
+
+        // Aquí puedes realizar la búsqueda en la base de datos u otra lógica
+        // $resultados = SomeModel::where('campo', 'like', '%'.$buscar.'%')->get();
+
+        // Pasar los resultados a la vista (si es necesario)
+        return view('resultados_busqueda', compact('buscar'));
+    }
+}
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 use App\Models\Incidencia;
+
 class InformeController extends Controller
 {
     // Muestra el formulario para generar informes
@@ -25,12 +49,10 @@ class InformeController extends Controller
 
     public function generarPDF($id)
     {
-        $incidencia = Incidencia::find($id);
+        // Usamos findOrFail para manejar la excepción si no se encuentra la incidencia
+        $incidencia = Incidencia::findOrFail($id); 
 
-        if (!$incidencia) {
-            return redirect()->route('informes.index')->with('error', 'Incidencia no encontrada.');
-        }
-
+        // Preparar los datos para el PDF
         $data = [
             'item' => $incidencia->item,
             'clave' => $incidencia->clave,
@@ -41,15 +63,18 @@ class InformeController extends Controller
             'observacion' => $incidencia->observacion,
         ];
 
+        // Generar el PDF
         $pdf = PDF::loadView('conductores.informes', $data);
-        return $pdf->download('informe_gestion_conductores.pdf');
+
+        // Descargar el PDF con un nombre más específico
+        return $pdf->download("informe_{$incidencia->clave}_gestion_conductores.pdf");
     }
 
-
+    // Método privado de validación para Recursos Humanos
     private function validateRecursosHumanos(Request $request)
     {
         $request->validate([
-            'itwm' => 'required|string',
+            'item' => 'required|string',
             'clave' => 'required|string',
             'colaborador' => 'required|string',
             'fecha_incidencia' => 'required|date',
@@ -57,6 +82,7 @@ class InformeController extends Controller
         ]);
     }
 
+    // Preparar los datos para los Recursos Humanos
     private function prepareRecursosHumanosData(Request $request)
     {
         return [
@@ -67,8 +93,8 @@ class InformeController extends Controller
             'fecha_baja' => $request->fecha_baja,
         ];
     }
-    
 
+    // Método privado de validación para la gestión de conductores
     private function validateGestionConductores(Request $request)
     {
         $request->validate([
@@ -78,6 +104,7 @@ class InformeController extends Controller
         ]);
     }
 
+    // Preparar los datos para la gestión de conductores
     private function prepareGestionConductoresData(Request $request)
     {
         return [
@@ -87,9 +114,11 @@ class InformeController extends Controller
         ];
     }
 
+    // Cancelar y redirigir al formulario de informes
     public function cancelar()
     {
         return redirect()->route('informes.index');
     }
 }
+
 

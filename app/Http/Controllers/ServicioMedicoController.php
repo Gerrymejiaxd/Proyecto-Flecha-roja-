@@ -50,3 +50,4 @@ class ServicioMedicoController extends Controller
         return redirect()->route('servicio-medico.index')->with('success', 'Incidencias actualizadas correctamente.');
     }
 }
+

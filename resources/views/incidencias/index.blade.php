@@ -1,7 +1,4 @@
-blade
 
-Verify
-Copy code
 @extends('layouts.app')
 
 @section('content')
@@ -100,5 +97,6 @@ Copy code
 
 </div>
 @endsection
+
 
 

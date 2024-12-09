@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller 
 {
@@ -22,22 +23,15 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Credenciales específicas
-        $specificEmail = 'gerardo.mejia1408@gmail.com';
-        $specificPassword = '$2y$12$JMYSu3zgQK3vXSSnUQk2dO30YjINZJhfmfSUda/alzvevi3uU4bZ2'; // Contraseña encriptada
+        // Buscar usuario en base de datos por correo
+        $user = User::where('email', $request->email)->first();
 
-        // Verificar si las credenciales son las específicas
-        if ($request->email === $specificEmail && Hash::check($request->password, $specificPassword)) {
-            // Autenticación exitosa, iniciar sesión manualmente
-            $user = \App\Models\User::where('email', $specificEmail)->first();
+        // Verificar si el usuario existe
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Autenticación exitosa, iniciar sesión
             Auth::login($user);
 
             return $this->authenticated($request, $user);
-        }
-
-        // Intentar autenticar al usuario normalmente
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return $this->authenticated($request, Auth::user());
         }
 
         // Si las credenciales son incorrectas, redirigir de nuevo con un mensaje de error
@@ -57,6 +51,7 @@ class LoginController extends Controller
             return redirect()->route('asignacion_conductores.index');
         }
 
+        // Redirigir a la gestión de conductores si el rol no está especificado
         return redirect()->route('conductores.gestion'); 
     }
 
@@ -66,4 +61,5 @@ class LoginController extends Controller
         return redirect()->route('login'); 
     }
 }
+
 

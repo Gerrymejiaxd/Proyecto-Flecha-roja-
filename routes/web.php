@@ -8,7 +8,15 @@ use App\Http\Controllers\AsignacionConductoresController;
 use App\Http\Controllers\ServicioMedicoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncidenciaController;
+use App\Http\Controllers\ProtectedController;
+
  // Asegúrate de importar el controlador de incidencias
+
+ // Usando el middleware `auth` estándar
+Route::get('/ruta-protegida', [ProtectedController::class, 'index'])->middleware('auth');
+
+// Usando el middleware personalizado
+Route::get('/ruta-protegida', [ProtectedController::class, 'index'])->middleware('autenticacion');
 
 // Ruta para la página de inicio de sesión
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

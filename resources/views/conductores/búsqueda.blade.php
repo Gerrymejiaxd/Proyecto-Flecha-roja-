@@ -5,7 +5,7 @@
     <h2 class="my-4">Gestión de Conductores - Búsqueda</h2>
     <a href="{{ route('conductores.gestion') }}" class="btn btn-secondary mb-3">Regresar</a>
     <div class="search-container mb-4">
-        <form action="{{ route('conductores.alta') }}" method="GET" id="search-form">
+        <form action="{{ route('conductores.alta') }}" method="POST" id="search-form">
             <input type="text" class="form-control d-inline-block" name="search" placeholder="Ingrese el nombre o clave del conductor" id="search-input" style="width: auto; display: inline-block;">
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-search"></i> Buscar
@@ -61,5 +61,6 @@
     }
 </script>
 @endsection
+
 
 

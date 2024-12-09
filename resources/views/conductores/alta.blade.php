@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+<a href="{{ route('conductores.gestion') }}" class="btn btn-secondary mb-3">Regresar </a>
     <h2>Alta de Conductores</h2>
     <form action="{{ route('conductores.guardar') }}" method="POST">
         @csrf
@@ -150,6 +151,16 @@
         <div class="form-group">
             <label for="vigencia_licencia">Vigencia de vigencia_licencia:</label>
             <input type="date" name="fecha_vencimiento" class="form-control">
+        </div>
+
+        <div class="form-group"> 
+            <label for="psicofisico">Fecha psicofisico:</label>
+            <input type="date" name="psicofisico" class="form-control">
+        </div>
+        
+        <div class="form-group"> 
+            <label for="antig_licencia">Antiguedad de licencia:</label>
+            <input type="date" name="antig_licencia" class="form-control">
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>

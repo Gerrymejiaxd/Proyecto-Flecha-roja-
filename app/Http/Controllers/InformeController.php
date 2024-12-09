@@ -87,25 +87,6 @@ class InformeController extends Controller
         ];
     }
 
-    public function mostrarInforme($id)
-    {
-        $incidencia = Incidencia::find($id);
-
-        if (!$incidencia) {
-            return redirect()->route('informes.index')->with('error', 'Incidencia no encontrada.');
-        }
-
-        return view('conductores.informes', [
-            'item' => $incidencia->item,
-            'clave' => $incidencia->clave,
-            'colaborador' => $incidencia->colaborador,
-            'fecha_incidencia' => $incidencia->fecha_incidencia,
-            'fecha_baja' => $incidencia->fecha_baja,
-            'incidencia' => $incidencia->descricion,
-            'observacion'=> $incidencia->observacion,
-        ]);
-    }
-
     public function cancelar()
     {
         return redirect()->route('informes.index');

@@ -9,8 +9,7 @@ class AsignacionConductoresController extends Controller
 {
     public function index()
     {
-        $conductores = Conductor::all(); // Reemplaza esto con tu lógica para obtener los conductores
-
+        $conductores = Conductor::all();
         return view('asignacion_conductores', compact('conductores'));
     }
 

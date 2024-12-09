@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Baja de Conductores</h2>
     <a href="{{ route('conductores.gestion') }}" class="btn btn-secondary mb-3">Regresar</a>
-    <form action="{{ route('conductores.gestion') }}" method="GET"> <!-- Cambiado a GET y a la ruta index -->
+    <form action="{{ route('conductores.gestion') }}" method="POST"> 
         <div class="form-group">
             <label for="clave">Clave del Conductor:</label>
             <input type="text" name="clave" class="form-control" value="{{ request('clave') }}">
@@ -15,7 +15,7 @@
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 
-    @if(request()->has('clave') || request()->has('nombre')) <!-- Verifica si se ha enviado la búsqueda -->
+    @if(request()->has('clave') || request()->has('nombre'))
         @if(isset($conductores) && count($conductores) > 0)
             <h3>Resultados de la Búsqueda</h3>
             <table class="table">

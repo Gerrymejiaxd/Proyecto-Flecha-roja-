@@ -20,13 +20,14 @@
             <a class="dropdown-item" href="{{ route('conductores.alta') }}">Alta</a>
             <a class="dropdown-item" href="{{ route('conductores.baja') }}">Baja</a>
             <a class="dropdown-item" href="{{ route('conductores.busqueda') }}">Búsqueda</a>
-            <a class="dropdown-item" href="{{ route('conductores.informes') }}">Informes</a>
-            <a class="dropdown-item" href="{{ route('informes.index') }}">Informes Generales</a>
+            <a class="dropdown-item" href="{{ route('conductores.gestion.informes') }}">Informes</a>
+            <a class="dropdown-item" href="{{ route('conductores.gestion.incidencias') }}">Incidencias</a>
             <a class="dropdown-item" href="{{ route('asignacion_conductores.index') }}">Asignación Conductores</a>
             <a class="dropdown-item" href="{{ route('servicio_medico.index') }}">Servicio Médico</a>
         </div>
     </div>
 </div>
 @endsection
+
 
 

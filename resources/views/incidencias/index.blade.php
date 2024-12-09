@@ -1,9 +1,14 @@
+blade
+
+Verify
+Copy code
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
 
     <a href="{{ route('conductores.gestion') }}" class="btn btn-secondary mb-3">Regresar</a>
+    
     <h2>Lista de Conductores</h2>
 
     @if($conductores->isEmpty())
@@ -64,10 +69,10 @@
                         <td>{{ $conductor->fecha_vencimiento }}</td>
                         <td>{{ $conductor->psicofisico }}</td>
                         <td>{{ $conductor->antig_licencia }}</td>
-                        <td>{{ $conductor->acciones }}</td>
+                        <td>
                             <form action="{{ route('conductores.gestion', $conductor->id) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Dar de Baja</button>
+                                <button type="submit" class="btn btn-danger">Dar de baja</button>
                             </form>
                             <a href="{{ route('conductores.alta', $conductor->id) }}" class="btn btn-warning">Editar</a>
                         </td>
@@ -76,5 +81,24 @@
             </tbody>
         </table>
     @endif
+
+    <h2 class="mt-5">Lista de Incidencias</h2>
+
+    @if ($incidencias->isEmpty())
+        <p>No hay incidencias registradas.</p>
+    @else
+        <ul>
+            @foreach ($incidencias as $incidencia)
+                <li>
+                    <a href="{{ route('informes.mostrar', ['id' => $incidencia->id]) }}">
+                        Ver Informe de {{ $incidencia->item }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
 </div>
 @endsection
+
+

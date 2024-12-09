@@ -14,7 +14,7 @@ class UserController extends Controller
             return redirect()->route('home')->with('error', 'No tienes permiso para acceder a esta página.');
         }
 
-        return view('usuarios.gestionar');
+        return view('conductores.gestionar_usuarios');
     }
 }
 

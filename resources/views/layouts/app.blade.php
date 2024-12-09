@@ -69,19 +69,16 @@
 </head>
 <body>
     <header class="header">
-        <img src="{{ asset('logo2.jpeg') }}" alt="Logo"> 
-        <h1>PORTAL DE GESTION DE CONDUCTORES</h1> 
-        <nav> 
-            <ul>
-                @if(Auth::check())
-                <li><a href="{{ route('servicio_medico.index') }}">Servicio Médico</a></li>
-                <li><a href="{{ route('asignacion_conductores.index') }}">Asignación Conductores</a></li>
-                @else 
-                <button><a href="{{ route('login') }}">Logout</a></button>
-                @endif
-            </ul>
-        </nav>
-    </header>
+    <img src="{{ asset('logo2.jpeg') }}" alt="Logo"> 
+    <h1>PORTAL DE GESTION DE CONDUCTORES</h1> 
+    <nav> 
+        <ul>
+            @if(Auth::check())
+                <button><a href="{{ route('logout') }}">Logout</a></button>
+            @endif
+        </ul>
+    </nav>
+</header>
 
     <main>
         <img src="{{ asset('autobuses.jpeg') }}" alt="Imagen"> 

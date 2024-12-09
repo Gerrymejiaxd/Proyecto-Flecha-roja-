@@ -7,6 +7,8 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\AsignacionConductoresController;
 use App\Http\Controllers\ServicioMedicoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\IncidenciaController;
+ // Asegúrate de importar el controlador de incidencias
 
 // Ruta para la página de inicio de sesión
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -36,14 +38,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/conductores/modificar/{id}', [ConductorController::class, 'modificar'])->name('conductores.modificar');
     Route::post('/conductores/actualizar/{id}', [ConductorController::class, 'actualizar'])->name('conductores.actualizar');
     
-    // Rutas para informes
-    Route::get('/informes', [InformeController::class, 'index'])->name('informes.index');
-    Route::get('/conductores/informes', [InformeController::class, 'informes'])->name('conductores.informes');
-    Route::post('/conductores/generar-informes', [InformeController::class, 'generar'])->name('conductores.generarInforme');
+
+    // Rutas para redirigir a incidencias y informes
+    Route::get('/conductores/gestion/incidencias', [IncidenciaController::class, 'index'])
+    ->name('conductores.gestion.incidencias');
+
+    Route::get('/conductores/gestion/informes', [InformeController::class, 'index'])
+    ->name('conductores.gestion.informes');
+    // Manteniendo las rutas de PDF
     Route::get('/conductores/pdf/recursos_humanos', [InformeController::class, 'recursosHumanos'])->name('conductores.pdf.recursos_humanos');
     Route::get('/conductores/pdf/gestion_conductores', [InformeController::class, 'gestionConductores'])->name('conductores.pdf.gestion_conductores');
     Route::post('/informes/generar', [InformeController::class, 'generar'])->name('informes.generar');
-    Route::get('/informes/{id}', [InformeController::class, 'mostrarInforme'])->name('informes.mostrar'); // Ruta para mostrar un informe específico
+    Route::get('/informes/{id}', [InformeController::class, 'informes'])->name('informes.mostrar'); // Ruta para mostrar un informe específico
     Route::get('/informes/pdf/{id}', [InformeController::class, 'generarPDF'])->name('informes.pdf'); // Ruta para generar PDF de un informe
 
     // Rutas para gestión de usuarios, protegida por autenticación y rol
@@ -62,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/asignacion-conductores/modificar/{id}', [AsignacionConductoresController::class, 'modificar'])->name('asignacion_conductores.modificar');
 
     // Rutas para servicio médico
-    Route::get('/servicio-medico', [ServicioMedicoController::class, 'index'])->name ('servicio_medico.index');
+    Route::get('/servicio-medico', [ServicioMedicoController::class, 'index'])->name('servicio_medico.index');
     Route::get('/servicio-medico/modificar/{id}', [ServicioMedicoController::class, 'modificar'])->name('servicio_medico.modificar');
     Route::post('/servicio-medico/actualizar/{id}', [ServicioMedicoController::class, 'actualizar'])->name('servicio_medico.actualizar');
 });
@@ -71,7 +77,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 
 

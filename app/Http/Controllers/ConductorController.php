@@ -19,6 +19,7 @@ class ConductorController extends Controller
     {
         $conductores = Conductor::paginate(5);
         return view('conductores.busqueda', compact('conductores'));
+        
     }
 
 

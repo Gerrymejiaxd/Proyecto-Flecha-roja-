@@ -12,6 +12,7 @@ class IncidenciaController extends Controller
     {
         $incidencias = Incidencia::all();
         $conductores = Conductor::paginate(5);
+        
         return view('incidencias.index', compact('incidencias','conductores')); 
     }
 }

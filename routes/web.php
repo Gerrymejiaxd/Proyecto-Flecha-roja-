@@ -46,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/conductores/modificar/{id}', [ConductorController::class, 'modificar'])->name('conductores.modificar');
     Route::post('/conductores/actualizar/{id}', [ConductorController::class, 'actualizar'])->name('conductores.actualizar');
     
-
     // Rutas para redirigir a incidencias y informes
     Route::get('/conductores/gestion/incidencias', [IncidenciaController::class, 'index'])
     ->name('conductores.gestion.incidencias');

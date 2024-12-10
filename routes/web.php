@@ -11,7 +11,6 @@ use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\ProtectedController;
 
  // Asegúrate de importar el controlador de incidencias
-
  // Usando el middleware `auth` estándar
 Route::get('/ruta-protegida', [ProtectedController::class, 'index'])->middleware('auth');
 

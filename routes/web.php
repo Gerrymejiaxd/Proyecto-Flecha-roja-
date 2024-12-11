@@ -10,8 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\ProtectedController;
 
- // Asegúrate de importar el controlador de incidencias
- // Usando el middleware `auth` estándar
+// Asegúrate de importar el controlador de incidencias
+// Usando el middleware `auth` estándar
 Route::get('/ruta-protegida', [ProtectedController::class, 'index'])->middleware('auth');
 
 // Usando el middleware personalizado
@@ -30,7 +30,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
 
     // Ruta para la gestión de conductores
-    Route::get('/conductores/gestion', [ConductorController::class,'gestion'])->name('conductores.gestion');
+    Route::get('/conductores/gestion', [ConductorController::class, 'gestion'])->name('conductores.gestion');
 
     // Otras rutas de conductores
     Route::get('/conductores', [ConductorController::class, 'index'])->name('conductores.index');
@@ -47,16 +47,19 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas para redirigir a incidencias y informes
     Route::get('/conductores/gestion/incidencias', [IncidenciaController::class, 'index'])
-    ->name('conductores.gestion.incidencias');
+        ->name('conductores.gestion.incidencias');
 
     Route::get('/conductores/gestion/informes', [InformeController::class, 'index'])
-    ->name('conductores.gestion.informes');
+        ->name('conductores.gestion.informes');
     // Manteniendo las rutas de PDF
     Route::get('/conductores/pdf/recursos_humanos', [InformeController::class, 'recursosHumanos'])->name('conductores.pdf.recursos_humanos');
     Route::get('/conductores/pdf/gestion_conductores', [InformeController::class, 'gestionConductores'])->name('conductores.pdf.gestion_conductores');
     Route::post('/informes/generar', [InformeController::class, 'generar'])->name('informes.generar');
     Route::get('/informes/{id}', [InformeController::class, 'informes'])->name('informes.mostrar'); // Ruta para mostrar un informe específico
     Route::get('/informes/pdf/{id}', [InformeController::class, 'generarPDF'])->name('informes.pdf'); // Ruta para generar PDF de un informe
+
+    //TODO: FIX THIS ROUTE (MISSING $DATA)
+    Route::view('/conductores/pdf/busqueda', 'conductores.pdf.busqueda')->name('conductores.pdf.busqueda');
 
     // Rutas para gestión de usuarios, protegida por autenticación y rol
     Route::get('/usuarios/gestionar', [UserController::class, 'manageUsers'])
@@ -83,7 +86,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
-

@@ -14,6 +14,14 @@ class ConductorController extends Controller
     {
         return view('conductores.alta');
     }
+    public function buscar()
+    {
+        $conductores = Conductor::paginate(5);
+        return view('conductores.búsqueda', compact('conductores'));
+
+    }
+
+
 
     public function guardar(Request $request)
     {

@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta para la gestión de conductores
     Route::get('/conductores/gestion', [ConductorController::class,'gestion'])->name('conductores.gestion');
-    
+
     // Otras rutas de conductores
     Route::get('/conductores', [ConductorController::class, 'index'])->name('conductores.index');
     Route::get('/conductores/create', [ConductorController::class, 'create'])->name('conductores.create');
@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/conductores/busqueda/{id}', [ConductorController::class, 'buscarporId'])->name('conductores.búsqueda.id');
     Route::get('/conductores/modificar/{id}', [ConductorController::class, 'modificar'])->name('conductores.modificar');
     Route::post('/conductores/actualizar/{id}', [ConductorController::class, 'actualizar'])->name('conductores.actualizar');
-    
+
     // Rutas para redirigir a incidencias y informes
     Route::get('/conductores/gestion/incidencias', [IncidenciaController::class, 'index'])
     ->name('conductores.gestion.incidencias');
@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
     // Rutas para gestión de usuarios, protegida por autenticación y rol
     Route::get('/usuarios/gestionar', [UserController::class, 'manageUsers'])
         ->name('usuarios.gestionar')
-        ->middleware('role:gestion conductores'); // Aquí se aplica el middleware de rol
+        ->middleware('role:gestion_conductores'); // Aquí se aplica el middleware de rol
 
     // Grupo de rutas para gestión de usuarios, protegido por autenticación y redirección
     Route::middleware(['redirect.to.gestion'])->group(function () {

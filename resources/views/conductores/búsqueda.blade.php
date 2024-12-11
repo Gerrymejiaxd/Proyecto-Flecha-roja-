@@ -45,7 +45,7 @@
         </tbody>
     </table>
 
-    {{ $conductores->links() }} 
+    {{ $conductores->links() }}
 </div>
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -53,11 +53,12 @@
     function limpiarBusqueda() {
         document.getElementById('search-input').value = '';
         document.getElementById('resultados').innerHTML = '';
-        document.getElementById('search-form').submit(); 
+        document.getElementById('search-form').submit();
     }
 
     function exportarPDF() {
-        window.location.href = "{{ route('conductores.pdf.busqueda') }}";
+        {{--TODO: FIX MISSING DATA --}}
+        window.location = "{{ route('conductores.pdf.busqueda') }}";
     }
 </script>
 @endsection
